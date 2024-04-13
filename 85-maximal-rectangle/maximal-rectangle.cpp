@@ -1,30 +1,58 @@
 class Solution {
 public:
-    int maximalRectangle(vector<vector<char>>& matrix) {
-        if (matrix.empty() || matrix[0].empty())
-            return 0;
-        
-        int rows = matrix.size();
-        int cols = matrix[0].size();
-        vector<int> heights(cols + 1, 0); 
-        int maxArea = 0;
-        
-        for (const auto& row : matrix) {
-            for (int i = 0; i < cols; i++) {
-                heights[i] = (row[i] == '1') ? heights[i] + 1 : 0;
+    int largestRectangleArea(vector<int>& heights) {
+        std::ios::sync_with_stdio(false);
+        std::cin.tie(nullptr);
+        std::cout.tie(nullptr);
+        stack<int> stk;
+        int max_space = 0;
+        for(int i=0;i<heights.size();i++){
+            if(stk.empty()){
+                if (heights[i])
+                    stk.push(heights[i]);
+                continue;
             }
-        
-            int n = heights.size(); 
-            
-            for (int i = 0; i < n; i++) {
-                for (int j = i, minHeight = INT_MAX; j < n; j++) {
-                    minHeight = min(minHeight, heights[j]);
-                    int area = minHeight * (j - i + 1);
-                    maxArea = max(maxArea, area);
+            if(stk.top() <= heights[i]){
+                stk.push(heights[i]);
+            } else {
+                int count_pop = 0;
+                while(!stk.empty() && stk.top() > heights[i]){
+                    count_pop++;
+                    int temp = stk.top();
+                    stk.pop();
+                    max_space = max(max_space,temp*count_pop);
                 }
+                while(count_pop){
+                    count_pop--;
+                    stk.push(heights[i]);
+                }
+                stk.push(heights[i]);
             }
         }
-        
-        return maxArea;
+        int count_pop = 0;
+        while(!stk.empty()){
+            count_pop++;
+            int temp = stk.top();
+            // cout<<temp<<endl;
+            stk.pop();
+            max_space = max(max_space,temp*count_pop);
+            // cout<<max_space<<endl;
+        }
+        return max_space;
+    }
+    int maximalRectangle(vector<vector<char>>& matrix) {
+        vector<int> vec(matrix[0].size(),0);
+        int maximal = 0;
+        for(auto &m:matrix){
+            for(int i=0;i<m.size();i++){
+                if(m[i] != '0')
+                    vec[i]++;
+                else {
+                    vec[i] = 0;
+                }                
+            }
+            maximal = max(maximal, largestRectangleArea(vec));
+        }
+        return maximal;
     }
 };
