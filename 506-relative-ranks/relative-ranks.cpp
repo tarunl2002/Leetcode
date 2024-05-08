@@ -3,9 +3,7 @@ public:
     vector<string> findRelativeRanks(vector<int>& score) {
         vector<int> sorted = score;
         vector<string> answer(score.size());
-        sort(sorted.begin(), sorted.end(), [](int a, int b) {
-        return a > b;
-    });
+        sort(sorted.begin(), sorted.end(), greater<int>());
         for(int i=0;i<score.size();i++){
             for(int j=0;j<sorted.size(); j++){
                 if(score[i]==sorted[j]){
