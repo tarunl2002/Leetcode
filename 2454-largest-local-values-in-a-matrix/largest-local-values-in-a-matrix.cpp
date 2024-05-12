@@ -11,7 +11,6 @@ public:
                         largest=max(largest, grid[k][l]);
                     }
                 }
-                cout<<largest<<endl; 
                 maxLocal[i][j]=largest;
             }
         }
