@@ -11,9 +11,11 @@
 class Solution {
 public:
     vector<int> nodesBetweenCriticalPoints(ListNode* head) {
+                ios_base::sync_with_stdio(false);
+
         vector<int> res;
         vector<int> temp;
-            int mi=9999999, ma;
+            int mi=9999999;
         int c = 0;
         if(head->next==nullptr || head->next->next==nullptr) return {-1,-1};
         while (head->next->next != nullptr) {
@@ -30,8 +32,7 @@ public:
         for(int i=0;i<temp.size()-1;i++){
             mi=min(temp[i+1]-temp[i], mi);
         }
-        ma=temp[temp.size()-1]-temp[0];
         
-        return {mi,ma};
+        return {mi,temp[temp.size()-1]-temp[0]};
     }
 };
