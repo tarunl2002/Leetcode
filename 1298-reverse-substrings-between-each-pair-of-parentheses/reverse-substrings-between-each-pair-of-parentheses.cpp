@@ -9,7 +9,10 @@ public:
                 st.pop();
             }
         }
-        erase_if(s, [](char c) { return c == '(' || c == ')'; });
-        return s;
+        string ans;
+        for(int i=0;i<s.length();i++){
+            if(s[i]!='(' && s[i]!=')') ans.push_back(s[i]);
+        }
+        return ans;
     }
 };
