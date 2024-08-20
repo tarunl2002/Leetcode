@@ -6,7 +6,6 @@ public:
         for(int i=0;i<s.length();i++){
             if(open==false && s[i]=='*'){
                 count++;
-                continue;
 
             } 
             if(s[i]=='|'){
