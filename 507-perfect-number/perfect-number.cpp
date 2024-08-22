@@ -4,8 +4,8 @@ public:
         int c=0;
         for(int i=1;i<num;i++){
             if(num%i==0) c+=i;
+            
         }
-        if(c==num) return true;
-        else return false;
+        return c==num;
     }
 };
