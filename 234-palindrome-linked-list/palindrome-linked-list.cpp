@@ -22,7 +22,6 @@ public:
         if(fast!=NULL) st.push(slow->val);
         while(!st.empty() && slow!=NULL){
             if(st.top()==slow->val){
-                cout<<st.top();
                 st.pop();
                 slow=slow->next;
             }
